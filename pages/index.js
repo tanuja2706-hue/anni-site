@@ -321,8 +321,9 @@ export default function Home() {
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
-                gap: "16px",
-                padding: "40px 16px 24px",
+                gap: "10px",
+                padding: "0 14px",
+                overflow: "hidden",
               }}
             >
               <motion.h1
@@ -331,9 +332,11 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
                 style={{
-                  fontSize: "clamp(1.8rem, 6vw, 2.4rem)",
+                  fontSize: "clamp(1.6rem, 5vw, 2.2rem)",
+                  lineHeight: 1.1,
                   fontWeight: 700,
                   color: "#ff8acb",
+                  marginBottom: "4px",
                 }}
               >
                 Something Sweet Is Loading....
@@ -351,8 +354,8 @@ export default function Home() {
               <motion.p
                 variants={fadeUp}
                 style={{
-                  marginTop: "6px",
-                  fontSize: "1.05rem",
+                  marginTop: "-6px",
+                  fontSize: "0.85rem",
                   opacity: 0.9,
                 }}
               >
@@ -397,8 +400,8 @@ export default function Home() {
                   src="/intro.gif"
                   alt="Cute intro"
                   style={{
-                    width: "210px",
-                    height: "210px",
+                    width: "170px",
+                    height: "170px",
                     objectFit: "contain",
                   }}
                 />
