@@ -309,6 +309,7 @@ export default function Home() {
 
       <main className="main slides">
         <div className="slide-wrapper">
+
           {/* SLIDE 0 */}
           {slide === 0 && (
             <section
@@ -320,7 +321,8 @@ export default function Home() {
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
-                gap: "24px",
+                gap: "16px",
+                padding: "40px 16px 24px",
               }}
             >
               <motion.h1
@@ -329,7 +331,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
                 style={{
-                  fontSize: "clamp(2.4rem, 5vw, 3.2rem)",
+                  fontSize: "clamp(1.8rem, 6vw, 2.4rem)",
                   fontWeight: 700,
                   color: "#ff8acb",
                 }}
@@ -341,7 +343,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.4, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
-                style={{ fontSize: "4rem" }}
+                style={{ fontSize: "3rem" }}
               >
                 💗
               </motion.div>
@@ -395,8 +397,8 @@ export default function Home() {
                   src="/intro.gif"
                   alt="Cute intro"
                   style={{
-                    width: "260px",
-                    height: "260px",
+                    width: "210px",
+                    height: "210px",
                     objectFit: "contain",
                   }}
                 />
