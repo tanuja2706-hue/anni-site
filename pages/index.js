@@ -383,32 +383,53 @@ export default function Home() {
               </motion.p>
 
               {isIntroLoading && (
+              <div
+                style={{
+                  marginTop: "26px",
+                  width: "90%",
+                  maxWidth: "520px",
+                }}
+              >
+                <div className="love-loader-track">
+                  <div
+                    className="love-loader-fill"
+                    style={{ width: `${loadingProgress}%` }}
+                  />
+                </div>
+
+                {/* text + percent on separate lines, center aligned */}
                 <div
                   style={{
-                    marginTop: "18px",
-                    width: "90%",
-                    maxWidth: "520px",
+                    marginTop: "10px",
+                    textAlign: "center",
                   }}
                 >
-                  <div className="love-loader-track">
-                    <div
-                      className="love-loader-fill"
-                      style={{ width: `${loadingProgress}%` }}
-                    />
-                  </div>
                   <p
                     style={{
-                      marginTop: "10px",
                       fontSize: "0.9rem",
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
                       color: "#fecaca",
                     }}
                   >
-                    Loading something sweet… {loadingProgress}%
+                    Loading something sweet…
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "4px",
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: "#ffe4f9",
+                    }}
+                  >
+                    {loadingProgress}%
                   </p>
                 </div>
-              )}
+              </div>
+            )}
+
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
