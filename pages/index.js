@@ -109,15 +109,6 @@ export default function Home() {
 
   const playClickSound = () => play(clickAudioRef);
 
-  /* GLOBAL – page scroll lock (no page scroll anywhere) */
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, []);
-
   /* HERO LOADING (slide 0) */
   useEffect(() => {
     if (!isIntroLoading) return;
@@ -309,22 +300,16 @@ export default function Home() {
   const isWinner = clickedIndex === winningIndex;
   const isFlipped = clickedIndex !== null;
 
-  /* common section style – full screen & content thoda upar */
-  const fullScreenSection = {
-    minHeight: "100dvh",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    padding: "72px 16px 20px", // top padding se likhawat upar
-    boxSizing: "border-box",
-  };
+  /* UI */
 
   return (
     <div
       className="page"
       style={{
-        height: "100dvh",
-        overflow: "hidden",
+        height: "100vh",
+        minHeight: "100vh",
+        overflow: "hidden", // IMPORTANT: yaha se body scroll band
+        position: "relative",
       }}
     >
       <div className="bg-glow" />
@@ -334,18 +319,29 @@ export default function Home() {
         className="main slides"
         style={{
           height: "100%",
+          overflow: "hidden",
         }}
       >
-        <div className="slide-wrapper" style={{ height: "100%" }}>
+        <div
+          className="slide-wrapper"
+          style={{
+            height: "100%",
+          }}
+        >
           {/* SLIDE 0 */}
           {slide === 0 && (
             <section
               className="hero"
               style={{
-                ...fullScreenSection,
+                height: "100%",
+                display: "flex",
                 flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
                 textAlign: "center",
-                gap: 10,
+                gap: "16px",
+                padding: "0 18px 80px",
+                boxSizing: "border-box",
               }}
             >
               <motion.h1
@@ -354,11 +350,11 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
                 style={{
-                  fontSize: "clamp(1.7rem, 6vw, 2.3rem)",
-                  lineHeight: 1.1,
+                  fontSize: "clamp(2rem, 5vw, 2.6rem)",
+                  lineHeight: 1.15,
                   fontWeight: 700,
                   color: "#ff8acb",
-                  marginBottom: 4,
+                  marginBottom: "4px",
                 }}
               >
                 Something Sweet
@@ -370,7 +366,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.4, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
-                style={{ fontSize: "3rem" }}
+                style={{ fontSize: "3.2rem" }}
               >
                 💗
               </motion.div>
@@ -378,8 +374,8 @@ export default function Home() {
               <motion.p
                 variants={fadeUp}
                 style={{
-                  marginTop: -4,
-                  fontSize: "0.9rem",
+                  marginTop: "-4px",
+                  fontSize: "0.95rem",
                   opacity: 0.9,
                 }}
               >
@@ -389,9 +385,9 @@ export default function Home() {
               {isIntroLoading && (
                 <div
                   style={{
-                    marginTop: 18,
-                    width: "92%",
-                    maxWidth: "420px",
+                    marginTop: "18px",
+                    width: "90%",
+                    maxWidth: "520px",
                   }}
                 >
                   <div className="love-loader-track">
@@ -402,8 +398,8 @@ export default function Home() {
                   </div>
                   <p
                     style={{
-                      marginTop: 8,
-                      fontSize: "0.85rem",
+                      marginTop: "10px",
+                      fontSize: "0.9rem",
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
                       color: "#fecaca",
@@ -418,14 +414,14 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
-                style={{ marginTop: 18 }}
+                style={{ marginTop: "10px" }}
               >
                 <img
                   src="/intro.gif"
                   alt="Cute intro"
                   style={{
-                    width: "150px",
-                    height: "150px",
+                    width: "180px",
+                    height: "180px",
                     objectFit: "contain",
                   }}
                 />
@@ -437,7 +433,13 @@ export default function Home() {
           {slide === 1 && (
             <section
               className="section anniv-full"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                boxSizing: "border-box",
+                padding: "24px 18px 96px",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <motion.div
                 className="anniv-inner"
@@ -446,15 +448,14 @@ export default function Home() {
                 animate="show"
                 style={{
                   width: "100%",
-                  maxWidth: "480px",
+                  maxWidth: "420px",
                   textAlign: "center",
-                  margin: "0 auto",
                 }}
               >
                 <motion.div
                   className="anniv-gif-circle"
                   variants={fadeUp}
-                  style={{ marginBottom: 12 }}
+                  style={{ marginBottom: "18px" }}
                 >
                   <img src="/anniversary.gif" alt="Anniversary cute" />
                 </motion.div>
@@ -474,7 +475,7 @@ export default function Home() {
                 <motion.div
                   className="anniv-days-wrap"
                   variants={fadeUp}
-                  style={{ marginTop: 4, marginBottom: 4 }}
+                  style={{ marginTop: "10px" }}
                 >
                   <span className="anniv-sparkle">✨</span>
                   <span className="anniv-days-number">{displayDays}</span>
@@ -484,7 +485,7 @@ export default function Home() {
                 <motion.p
                   className="anniv-subtext bottom"
                   variants={fadeUp}
-                  style={{ marginTop: 0 }}
+                  style={{ marginTop: "8px" }}
                 >
                   days and counting…
                 </motion.p>
@@ -496,7 +497,13 @@ export default function Home() {
           {slide === 2 && (
             <section
               className="section anniv-full"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                boxSizing: "border-box",
+                padding: "24px 16px 96px",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <motion.div
                 className="anniv-inner"
@@ -505,9 +512,8 @@ export default function Home() {
                 animate="show"
                 style={{
                   width: "100%",
-                  maxWidth: "520px",
+                  maxWidth: "460px",
                   textAlign: "center",
-                  margin: "0 auto",
                 }}
               >
                 <motion.p
@@ -522,7 +528,7 @@ export default function Home() {
                   variants={fadeUp}
                   style={{
                     marginBottom: "0.8rem",
-                    fontSize: "clamp(1.8rem, 5vw, 2.2rem)",
+                    fontSize: "clamp(2rem, 3.4vw, 2.4rem)",
                     fontWeight: 800,
                     color: "#ff8acb",
                   }}
@@ -533,10 +539,10 @@ export default function Home() {
                 <motion.p
                   className="section-text"
                   variants={fadeUp}
-                  style={{ marginBottom: "1.1rem", fontSize: "0.95rem" }}
+                  style={{ marginBottom: "1.2rem" }}
                 >
-                  Teen cards, ek hi asli surprise…Let&apos;s see how strong
-                  your guess is. 😏💕
+                  Teen cards, ek hi asli surprise…Let&apos;s see how strong your
+                  guess is. 😏💕
                 </motion.p>
 
                 <motion.div
@@ -544,8 +550,8 @@ export default function Home() {
                   style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                    gap: "0.7rem",
-                    marginBottom: "1.1rem",
+                    gap: "0.8rem",
+                    marginBottom: "1.4rem",
                   }}
                 >
                   {[0, 1, 2].map((i) => {
@@ -554,8 +560,8 @@ export default function Home() {
                       ? "linear-gradient(135deg,#4b5563,#111827)"
                       : "linear-gradient(135deg,#1f2937,#111827)";
                     const shadow = isThisClicked
-                      ? "0 0 14px rgba(75,85,99,0.9)"
-                      : "0 0 10px rgba(15,23,42,0.9)";
+                      ? "0 0 18px rgba(75,85,99,0.9)"
+                      : "0 0 12px rgba(15,23,42,0.9)";
                     return (
                       <motion.button
                         key={i}
@@ -568,8 +574,8 @@ export default function Home() {
                           border: "none",
                           outline: "none",
                           cursor: "pointer",
-                          borderRadius: "20px",
-                          padding: "0.9rem 0.6rem",
+                          borderRadius: "22px",
+                          padding: "1rem 0.6rem",
                           background: bg,
                           boxShadow: shadow,
                           display: "flex",
@@ -580,15 +586,15 @@ export default function Home() {
                       >
                         <span
                           style={{
-                            fontSize: "1.5rem",
-                            marginBottom: "0.3rem",
+                            fontSize: "1.6rem",
+                            marginBottom: "0.4rem",
                           }}
                         >
                           💌
                         </span>
                         <span
                           style={{
-                            fontSize: "0.8rem",
+                            fontSize: "0.85rem",
                             fontWeight: 600,
                             color: "#fff",
                           }}
@@ -611,7 +617,7 @@ export default function Home() {
                   <div
                     style={{
                       width: "100%",
-                      maxWidth: "480px",
+                      maxWidth: "520px",
                       perspective: "1400px",
                     }}
                   >
@@ -619,7 +625,7 @@ export default function Home() {
                       style={{
                         position: "relative",
                         width: "100%",
-                        height: "210px",
+                        height: "220px",
                         transformStyle: "preserve-3d",
                         transform: isFlipped
                           ? "rotateY(180deg)"
@@ -633,10 +639,10 @@ export default function Home() {
                         style={{
                           position: "absolute",
                           inset: 0,
-                          borderRadius: "22px",
+                          borderRadius: "26px",
                           background:
                             "linear-gradient(135deg,#020617,#111827)",
-                          boxShadow: "0 16px 35px rgba(15,23,42,0.9)",
+                          boxShadow: "0 20px 45px rgba(15,23,42,0.9)",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
@@ -646,13 +652,13 @@ export default function Home() {
                       >
                         <span
                           style={{
-                            fontSize: "2rem",
-                            marginBottom: "0.5rem",
+                            fontSize: "2.2rem",
+                            marginBottom: "0.6rem",
                           }}
                         >
                           💌
                         </span>
-                        <span style={{ fontSize: "0.9rem", opacity: 0.9 }}>
+                        <span style={{ fontSize: "0.95rem", opacity: 0.9 }}>
                           Kisi bhi card pe click karo…
                         </span>
                       </div>
@@ -662,21 +668,21 @@ export default function Home() {
                         style={{
                           position: "absolute",
                           inset: 0,
-                          borderRadius: "22px",
+                          borderRadius: "26px",
                           background: isWinner
                             ? "linear-gradient(135deg,#ec4899,#a855ff)"
                             : "linear-gradient(135deg,#020617,#111827)",
                           boxShadow: isWinner
-                            ? "0 20px 45px rgba(236,72,153,0.8)"
-                            : "0 16px 35px rgba(15,23,42,0.9)",
-                          padding: "1.2rem 1.5rem",
+                            ? "0 24px 60px rgba(236,72,153,0.8)"
+                            : "0 18px 40px rgba(15,23,42,0.9)",
+                          padding: "1.4rem 1.6rem",
                           backfaceVisibility: "hidden",
                           transform: "rotateY(180deg)",
                           color: "#fff",
                         }}
                       >
                         {clickedIndex === null ? (
-                          <p style={{ fontSize: "0.95rem", opacity: 0.9 }}>
+                          <p style={{ fontSize: "1rem", opacity: 0.9 }}>
                             Pehle upar se koi card choose karo. 💖
                           </p>
                         ) : isWinner ? (
@@ -687,14 +693,14 @@ export default function Home() {
                                 textTransform: "uppercase",
                                 letterSpacing: "0.08em",
                                 opacity: 0.9,
-                                marginBottom: "0.3rem",
+                                marginBottom: "0.35rem",
                               }}
                             >
                               You found it! 🎉
                             </p>
                             <p
                               style={{
-                                fontSize: "1.2rem",
+                                fontSize: "1.3rem",
                                 fontWeight: 700,
                                 marginBottom: "0.5rem",
                               }}
@@ -703,7 +709,7 @@ export default function Home() {
                             </p>
                             <p
                               style={{
-                                fontSize: "0.95rem",
+                                fontSize: "0.98rem",
                                 lineHeight: 1.6,
                                 marginBottom: "0.5rem",
                               }}
@@ -719,8 +725,8 @@ export default function Home() {
                                 setSlide(3);
                               }}
                               style={{
-                                marginTop: "0.2rem",
-                                padding: "0.6rem 2.1rem",
+                                marginTop: "0.1rem",
+                                padding: "0.6rem 2.2rem",
                                 borderRadius: "999px",
                                 border: "none",
                                 background:
@@ -738,18 +744,18 @@ export default function Home() {
                           <>
                             <p
                               style={{
-                                fontSize: "0.85rem",
+                                fontSize: "0.9rem",
                                 textTransform: "uppercase",
                                 letterSpacing: "0.08em",
                                 opacity: 0.8,
-                                marginBottom: "0.3rem",
+                                marginBottom: "0.35rem",
                               }}
                             >
                               Not this one… 😉
                             </p>
                             <p
                               style={{
-                                fontSize: "0.95rem",
+                                fontSize: "1.02rem",
                                 lineHeight: 1.6,
                                 color: "#e5e7eb",
                               }}
@@ -774,28 +780,28 @@ export default function Home() {
           {slide === 3 && (
             <section
               className="section"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                padding: "24px 16px 96px",
+                boxSizing: "border-box",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <motion.div
                 className="section-inner message-card"
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{
-                  width: "100%",
-                  maxWidth: "520px",
-                  textAlign: "center",
-                  paddingTop: 0,
-                  paddingBottom: 0,
-                  margin: "0 auto",
-                }}
+                style={{ maxWidth: "460px" }}
               >
                 <motion.h2
                   variants={fadeUp}
                   style={{
-                    fontSize: "clamp(1.9rem, 4.6vw, 2.4rem)",
+                    fontSize: "clamp(2rem, 3.6vw, 2.6rem)",
                     fontWeight: 800,
-                    marginBottom: "1rem",
+                    marginBottom: "1.2rem",
+                    textAlign: "center",
                     color: "#ff8acb",
                   }}
                 >
@@ -812,11 +818,11 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      padding: "0.4rem",
+                      padding: "0.5rem",
                       borderRadius: "999px",
                       background:
                         "radial-gradient(circle at 50% 30%, #111827, #020617)",
-                      boxShadow: "0 0 30px rgba(248,113,113,0.55)",
+                      boxShadow: "0 0 35px rgba(248,113,113,0.55)",
                       display: "inline-flex",
                     }}
                   >
@@ -824,8 +830,8 @@ export default function Home() {
                       src="/cute-cat.gif"
                       alt="Happy cat"
                       style={{
-                        width: "170px",
-                        height: "170px",
+                        width: "180px",
+                        height: "180px",
                         borderRadius: "999px",
                         objectFit: "cover",
                       }}
@@ -854,21 +860,21 @@ export default function Home() {
                       style={{
                         border: "none",
                         outline: "none",
-                        padding: "0.9rem 2.8rem",
+                        padding: "0.9rem 3rem",
                         borderRadius: "999px",
                         background: "#f973b8",
-                        boxShadow: "0 16px 36px rgba(236,72,153,0.55)",
+                        boxShadow: "0 18px 40px rgba(236,72,153,0.55)",
                         color: "#fff",
                         fontWeight: 700,
-                        fontSize: "1rem",
+                        fontSize: "1.02rem",
                         cursor: "pointer",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "0.5rem",
+                        gap: "0.6rem",
                       }}
                     >
                       Read My Message{" "}
-                      <span style={{ fontSize: "1.2rem" }}>💌</span>
+                      <span style={{ fontSize: "1.3rem" }}>💌</span>
                     </button>
                   </motion.div>
                 )}
@@ -887,26 +893,28 @@ export default function Home() {
           {slide === 4 && (
             <section
               className="section anniv-full"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                padding: "24px 16px 96px",
+                boxSizing: "border-box",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <motion.div
                 className="section-inner"
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{
-                  maxWidth: "640px",
-                  width: "100%",
-                  textAlign: "center",
-                  margin: "0 auto",
-                }}
+                style={{ maxWidth: "480px" }}
               >
                 <motion.h2
                   variants={fadeUp}
                   style={{
-                    fontSize: "clamp(1.9rem, 4.4vw, 2.4rem)",
+                    fontSize: "clamp(2rem, 3.4vw, 2.6rem)",
                     fontWeight: 800,
                     marginBottom: "1.2rem",
+                    textAlign: "center",
                     color: "#a855f7",
                   }}
                 >
@@ -921,12 +929,12 @@ export default function Home() {
                   }}
                   style={{
                     margin: "1.6rem auto 0",
-                    maxWidth: "430px",
-                    padding: "1.7rem 1.9rem",
-                    borderRadius: "26px",
+                    maxWidth: "420px",
+                    padding: "1.7rem 2rem",
+                    borderRadius: "28px",
                     background:
                       "linear-gradient(135deg,#ffe9f4,#fdf2ff,#ffe4e6)",
-                    boxShadow: "0 12px 26px rgba(248, 187, 208, 0.35)",
+                    boxShadow: "0 12px 28px rgba(248, 187, 208, 0.35)",
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -943,10 +951,10 @@ export default function Home() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: "0 10px 20px rgba(148,163,184,0.5)",
-                      marginBottom: "0.3rem",
+                      boxShadow: "0 10px 22px rgba(148,163,184,0.5)",
+                      marginBottom: "0.2rem",
                     }}
-                    animate={{ scale: [1, 1.12, 1] }}
+                    animate={{ scale: [1, 1.12, 1] }} // pulse
                     transition={{
                       duration: 1.3,
                       repeat: Infinity,
@@ -969,9 +977,9 @@ export default function Home() {
 
                   <p
                     style={{
-                      fontSize: "0.95rem",
+                      fontSize: "0.96rem",
                       color: "#6b7280",
-                      marginTop: "0.15rem",
+                      marginTop: "0.1rem",
                     }}
                   >
                     Click to read my message
@@ -985,27 +993,29 @@ export default function Home() {
           {slide === 5 && (
             <section
               className="section anniv-full"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                padding: "20px 14px 96px",
+                boxSizing: "border-box",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <motion.div
                 className="section-inner"
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{
-                  maxWidth: "640px",
-                  width: "100%",
-                  textAlign: "center",
-                  margin: "0 auto",
-                }}
+                style={{ maxWidth: "640px" }}
               >
                 {/* Title */}
                 <motion.h2
                   variants={fadeUp}
                   style={{
-                    fontSize: "clamp(1.9rem, 4.4vw, 2.4rem)",
+                    fontSize: "clamp(1.9rem, 3.4vw, 2.4rem)",
                     fontWeight: 800,
                     marginBottom: "1.1rem",
+                    textAlign: "center",
                     color: "#ff8acb",
                   }}
                 >
@@ -1019,13 +1029,11 @@ export default function Home() {
                   style={{
                     background:
                       "linear-gradient(135deg,#ffeaf4,#fdf2ff,#ffe4e6)",
-                    borderRadius: "26px",
-                    boxShadow: "0 14px 36px rgba(248,187,208,0.55)",
-                    padding: "1.7rem 1.9rem 2.1rem",
+                    borderRadius: "28px",
+                    boxShadow: "0 14px 38px rgba(248,187,208,0.55)",
+                    padding: "1.6rem 1.8rem 2rem",
                     position: "relative",
                     overflow: "hidden",
-                    maxHeight: "60vh",
-                    margin: "0 auto",
                   }}
                 >
                   {/* soft floating hearts background */}
@@ -1038,7 +1046,9 @@ export default function Home() {
                       fontSize: "1.3rem",
                     }}
                   >
-                    <span style={{ position: "absolute", top: "12%", left: "10%" }}>
+                    <span
+                      style={{ position: "absolute", top: "12%", left: "10%" }}
+                    >
                       💗
                     </span>
                     <span
@@ -1071,18 +1081,13 @@ export default function Home() {
                   </div>
 
                   {/* MAIN LETTER CONTENT – typed text */}
-                  <div
-                    style={{
-                      position: "relative",
-                      zIndex: 2,
-                      maxHeight: "46vh",
-                      overflowY: "auto",
-                      paddingRight: "0.35rem",
-                    }}
-                  >
+                  <div style={{ position: "relative", zIndex: 2 }}>
                     <p
                       style={{
                         marginTop: "0.2rem",
+                        maxHeight: "260px", // inner scroll ok
+                        overflowY: "auto",
+                        paddingRight: "0.4rem",
                         fontSize: "0.98rem",
                         lineHeight: 1.7,
                         color: "#4b5563",
@@ -1099,8 +1104,8 @@ export default function Home() {
                     <>
                       <div
                         style={{
-                          marginTop: "1.2rem",
-                          fontSize: "1rem",
+                          marginTop: "1.4rem",
+                          fontSize: "1.02rem",
                           fontWeight: 600,
                           color: "#ec4899",
                           textAlign: "center",
@@ -1111,7 +1116,7 @@ export default function Home() {
                       <div
                         style={{
                           marginTop: "0.4rem",
-                          fontSize: "1.6rem",
+                          fontSize: "1.8rem",
                           textAlign: "center",
                         }}
                       >
@@ -1140,7 +1145,7 @@ export default function Home() {
                     fontSize: "1rem",
                     fontWeight: 700,
                     cursor: "pointer",
-                    boxShadow: "0 16px 38px rgba(34,197,94,0.58)",
+                    boxShadow: "0 16px 40px rgba(34,197,94,0.58)",
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
@@ -1156,21 +1161,23 @@ export default function Home() {
           {slide === 6 && (
             <section
               className="section anniv-full"
-              style={fullScreenSection}
+              style={{
+                height: "100%",
+                padding: "24px 16px 96px",
+                boxSizing: "border-box",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
             >
               <motion.div
                 className="section-inner"
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{
-                  maxWidth: "640px",
-                  textAlign: "center",
-                  width: "100%",
-                  margin: "0 auto",
-                }}
+                style={{ maxWidth: "640px" }}
               >
-                {/* text sirf jab envelope close ho */}
+                {/* text sirf tab jab envelope close ho */}
                 {!envelopeOpened && (
                   <>
                     <motion.p
@@ -1180,7 +1187,7 @@ export default function Home() {
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
                         color: "#f9a8d4",
-                        marginBottom: "0.7rem",
+                        marginBottom: "0.6rem",
                       }}
                     >
                       One last little surprise
@@ -1189,7 +1196,7 @@ export default function Home() {
                     <motion.h2
                       variants={fadeUp}
                       style={{
-                        fontSize: "clamp(1.9rem, 4vw, 2.4rem)",
+                        fontSize: "clamp(2rem, 3.2vw, 2.5rem)",
                         fontWeight: 800,
                         marginBottom: "1.2rem",
                         color: "#ff8acb",
@@ -1223,12 +1230,12 @@ export default function Home() {
                     }}
                     style={{
                       margin: "0 auto",
-                      width: "250px",
-                      height: "170px",
+                      width: "260px",
+                      height: "180px",
                       borderRadius: "24px",
                       background:
                         "linear-gradient(135deg,#111827,#020617)",
-                      boxShadow: "0 20px 40px rgba(12, 21, 42, 0.9)",
+                      boxShadow: "0 20px 45px rgba(12, 21, 42, 0.9)",
                       position: "relative",
                       cursor: "pointer",
                       display: "flex",
@@ -1265,15 +1272,15 @@ export default function Home() {
                       style={{
                         position: "relative",
                         zIndex: 2,
-                        width: "52px",
-                        height: "52px",
+                        width: "54px",
+                        height: "54px",
                         borderRadius: "999px",
                         background:
                           "radial-gradient(circle at 30% 20%,#fecaca,#fb7185)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        boxShadow: "0 12px 28px rgba(248,113,113,0.65)",
+                        boxShadow: "0 12px 30px rgba(248,113,113,0.65)",
                       }}
                       animate={{
                         scale: [1, 1.03, 1],
@@ -1286,7 +1293,7 @@ export default function Home() {
                         ease: "easeInOut",
                       }}
                     >
-                      <span style={{ fontSize: "1.7rem" }}>💗</span>
+                      <span style={{ fontSize: "1.8rem" }}>💗</span>
                     </motion.div>
                   </motion.div>
                 ) : (
@@ -1294,14 +1301,15 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.4, y: 40 }}
                     animate={{
                       opacity: 1,
-                      scale: [0.4, 1.05, 1],
+                      scale: [0.4, 1.1, 1],
                       y: [40, -6, 0],
                     }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     style={{
-                      margin: "0.4rem auto 0",
-                      width: "320px",
-                      height: "400px",
+                      margin: "0 auto",
+                      marginTop: "1rem",
+                      width: "340px",
+                      height: "420px",
                       perspective: "1200px",
                       position: "relative",
                       zIndex: 1,
@@ -1310,8 +1318,8 @@ export default function Home() {
                     <div
                       style={{
                         position: "absolute",
-                        inset: "-34px",
-                        borderRadius: "32px",
+                        inset: "-36px",
+                        borderRadius: "36px",
                         background:
                           "radial-gradient(circle, rgba(255,150,200,0.5), rgba(255,150,200,0))",
                         filter: "blur(26px)",
@@ -1346,7 +1354,7 @@ export default function Home() {
                           inset: 0,
                           borderRadius: "24px",
                           overflow: "hidden",
-                          boxShadow: "0 20px 40px rgba(15,23,42,0.9)",
+                          boxShadow: "0 20px 45px rgba(15,23,42,0.9)",
                           backfaceVisibility: "hidden",
                         }}
                       >
@@ -1370,8 +1378,8 @@ export default function Home() {
                           borderRadius: "24px",
                           background:
                             "linear-gradient(135deg,#020617,#111827)",
-                          boxShadow: "0 20px 40px rgba(15,23,42,0.9)",
-                          padding: "1.4rem 1.2rem",
+                          boxShadow: "0 20px 45px rgba(15,23,42,0.9)",
+                          padding: "1.6rem 1.4rem",
                           backfaceVisibility: "hidden",
                           transform: "rotateY(180deg)",
                           display: "flex",
@@ -1383,9 +1391,9 @@ export default function Home() {
                       >
                         <p
                           style={{
-                            fontSize: "1rem",
+                            fontSize: "1.02rem",
                             lineHeight: 1.7,
-                            marginBottom: "0.7rem",
+                            marginBottom: "0.8rem",
                           }}
                         >
                           This story doesn&apos;t end here…
@@ -1397,6 +1405,15 @@ export default function Home() {
                     </div>
                   </motion.div>
                 )}
+
+                <motion.p
+                  variants={fadeUp}
+                  style={{
+                    marginTop: "1.4rem",
+                    fontSize: "0.95rem",
+                    color: "#9ca3af",
+                  }}
+                />
               </motion.div>
             </section>
           )}
@@ -1476,7 +1493,20 @@ export default function Home() {
           </div>
         )}
 
-      <footer className="footer">
+      {/* FOOTER ko fixed kar diya – height increase nahi karega */}
+      <footer
+        className="footer"
+        style={{
+          position: "fixed",
+          bottom: 8,
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          fontSize: "0.7rem",
+          opacity: 0.7,
+          pointerEvents: "none",
+        }}
+      >
         <p>Made with ♥ just for you.</p>
       </footer>
 
