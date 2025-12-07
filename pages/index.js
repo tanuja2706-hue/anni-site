@@ -57,6 +57,16 @@ export default function Home() {
   const totalSlides = 7; // 0..6
 
   const [slide, setSlide] = useState(0);
+    // ❌ Pure page pe scroll band – har slide ek fixed screen jaisa
+  useEffect(() => {
+    document.body.style.margin = "0";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   const [heartBoom, setHeartBoom] = useState(false);
   const [timeTogether] = useState(calculateTimeTogether());
   const [displayDays, setDisplayDays] = useState(0);
@@ -1404,9 +1414,10 @@ export default function Home() {
           </div>
         )}
 
-      <footer className="footer">
+        {/* <footer className="footer">
         <p>Made with ♥ just for you.</p>
-      </footer>
+        </footer> */}
+
 
       {/* AUDIO TAGS */}
       <audio ref={audioRef} src="/typing.mp3?v=2" preload="auto" />
