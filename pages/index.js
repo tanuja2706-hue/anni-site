@@ -309,13 +309,13 @@ export default function Home() {
   const isWinner = clickedIndex === winningIndex;
   const isFlipped = clickedIndex !== null;
 
-  /* common section style – full screen & centered */
+  /* common section style – full screen & content thoda upar */
   const fullScreenSection = {
     minHeight: "100dvh",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "16px 16px 20px",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    padding: "72px 16px 20px", // top padding se likhawat upar
     boxSizing: "border-box",
   };
 
@@ -448,6 +448,7 @@ export default function Home() {
                   width: "100%",
                   maxWidth: "480px",
                   textAlign: "center",
+                  margin: "0 auto",
                 }}
               >
                 <motion.div
@@ -506,6 +507,7 @@ export default function Home() {
                   width: "100%",
                   maxWidth: "520px",
                   textAlign: "center",
+                  margin: "0 auto",
                 }}
               >
                 <motion.p
@@ -785,6 +787,7 @@ export default function Home() {
                   textAlign: "center",
                   paddingTop: 0,
                   paddingBottom: 0,
+                  margin: "0 auto",
                 }}
               >
                 <motion.h2
@@ -891,7 +894,12 @@ export default function Home() {
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{ maxWidth: "640px", width: "100%", textAlign: "center" }}
+                style={{
+                  maxWidth: "640px",
+                  width: "100%",
+                  textAlign: "center",
+                  margin: "0 auto",
+                }}
               >
                 <motion.h2
                   variants={fadeUp}
@@ -984,7 +992,12 @@ export default function Home() {
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{ maxWidth: "640px", width: "100%", textAlign: "center" }}
+                style={{
+                  maxWidth: "640px",
+                  width: "100%",
+                  textAlign: "center",
+                  margin: "0 auto",
+                }}
               >
                 {/* Title */}
                 <motion.h2
@@ -1150,7 +1163,12 @@ export default function Home() {
                 variants={stagger}
                 initial="hidden"
                 animate="show"
-                style={{ maxWidth: "640px", textAlign: "center", width: "100%" }}
+                style={{
+                  maxWidth: "640px",
+                  textAlign: "center",
+                  width: "100%",
+                  margin: "0 auto",
+                }}
               >
                 {/* text sirf jab envelope close ho */}
                 {!envelopeOpened && (
@@ -1281,8 +1299,7 @@ export default function Home() {
                     }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     style={{
-                      margin: "0 auto",
-                      marginTop: "0.8rem",
+                      margin: "0.4rem auto 0",
                       width: "320px",
                       height: "400px",
                       perspective: "1200px",
