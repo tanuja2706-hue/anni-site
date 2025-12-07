@@ -146,22 +146,16 @@ export default function Home() {
     if (slide === 0) play(whooshRef);
   }, [slide]);
 
-  /* SLIDE 0 – body + html scroll lock */
+  /* GLOBAL – disable page scroll on all slides */
   useEffect(() => {
-    if (slide === 0) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden"; // ⭐IMPORTANT
-    } else {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    }
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, [slide]);
-
+  }, []);
 
   /* SLIDE 0 – real viewport height fix for mobile */
   useEffect(() => {
