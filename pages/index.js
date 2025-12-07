@@ -100,6 +100,9 @@ export default function Home() {
   const flipRef = useRef(null);
   const bellRef = useRef(null);
 
+  const heroRef = useRef(null);
+
+
   /* helpers */
   const play = (ref) => {
     if (!ref?.current) return;
@@ -154,6 +157,32 @@ export default function Home() {
       document.body.style.overflow = "";
     };
   }, [slide]);
+
+  /* SLIDE 0 – real viewport height fix for mobile */
+  useEffect(() => {
+    if (slide !== 0) {
+      if (heroRef.current) heroRef.current.style.height = "";
+      return;
+    }
+
+    const setHeroHeight = () => {
+      if (heroRef.current) {
+        heroRef.current.style.height = `${window.innerHeight}px`;
+      }
+    };
+
+    setHeroHeight();
+
+    window.addEventListener("resize", setHeroHeight);
+    window.addEventListener("orientationchange", setHeroHeight);
+
+    return () => {
+      window.removeEventListener("resize", setHeroHeight);
+      window.removeEventListener("orientationchange", setHeroHeight);
+      if (heroRef.current) heroRef.current.style.height = "";
+    };
+  }, [slide]);
+
 
   /* SLIDE 1 COUNTER */
   useEffect(() => {
@@ -325,6 +354,7 @@ export default function Home() {
           {/* SLIDE 0 */}
           {slide === 0 && (
             <section
+              ref={heroRef}
               className="hero"
               style={{
                 minHeight: "100vh",
