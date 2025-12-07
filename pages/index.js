@@ -100,8 +100,8 @@ export default function Home() {
   const flipRef = useRef(null);
   const bellRef = useRef(null);
 
+  // hero section ref
   const heroRef = useRef(null);
-
 
   /* helpers */
   const play = (ref) => {
@@ -146,16 +146,21 @@ export default function Home() {
     if (slide === 0) play(whooshRef);
   }, [slide]);
 
-  /* GLOBAL – disable page scroll on all slides */
+  /* SLIDE 0 – lock scroll only on hero */
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    if (slide === 0) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
 
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, []);
+  }, [slide]);
 
   /* SLIDE 0 – real viewport height fix for mobile */
   useEffect(() => {
@@ -181,15 +186,6 @@ export default function Home() {
       if (heroRef.current) heroRef.current.style.height = "";
     };
   }, [slide]);
-
-  /* reset hero position after leaving slide 0 */
-  useEffect(() => {
-    if (slide !== 0 && heroRef.current) {
-      heroRef.current.style.position = "";
-      heroRef.current.style.inset = "";
-    }
-  }, [slide]);
-
 
   /* SLIDE 1 COUNTER */
   useEffect(() => {
@@ -357,15 +353,12 @@ export default function Home() {
 
       <main className="main slides">
         <div className="slide-wrapper">
-
           {/* SLIDE 0 */}
           {slide === 0 && (
             <section
               ref={heroRef}
               className="hero"
               style={{
-                position: "fixed",   
-                inset: 0,
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
@@ -390,7 +383,7 @@ export default function Home() {
                   marginBottom: "4px",
                 }}
               >
-                Something Sweet 
+                Something Sweet{" "}
                 <br />
                 Is Loading....
               </motion.h1>
@@ -988,7 +981,8 @@ export default function Home() {
                     color: "#ff8acb",
                   }}
                 >
-                  This Is Just For You <span style={{ fontSize: "2rem" }}>💌</span>
+                  This Is Just For You{" "}
+                  <span style={{ fontSize: "2rem" }}>💌</span>
                 </motion.h2>
 
                 {/* LETTER CARD */}
@@ -1013,16 +1007,36 @@ export default function Home() {
                       fontSize: "1.3rem",
                     }}
                   >
-                    <span style={{ position: "absolute", top: "12%", left: "10%" }}>
+                    <span
+                      style={{ position: "absolute", top: "12%", left: "10%" }}
+                    >
                       💗
                     </span>
-                    <span style={{ position: "absolute", top: "18%", right: "14%" }}>
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "18%",
+                        right: "14%",
+                      }}
+                    >
                       💜
                     </span>
-                    <span style={{ position: "absolute", bottom: "18%", left: "18%" }}>
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "18%",
+                        left: "18%",
+                      }}
+                    >
                       💖
                     </span>
-                    <span style={{ position: "absolute", bottom: "10%", right: "8%" }}>
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "10%",
+                        right: "8%",
+                      }}
+                    >
                       💘
                     </span>
                   </div>
@@ -1032,7 +1046,7 @@ export default function Home() {
                     <p
                       style={{
                         marginTop: "0.4rem",
-                        maxHeight: "260px",       // pehle jaisa scrollbar
+                        maxHeight: "260px", // pehle jaisa scrollbar
                         overflowY: "auto",
                         paddingRight: "0.4rem",
                         fontSize: "1rem",
@@ -1073,7 +1087,7 @@ export default function Home() {
                   )}
                 </motion.div>
 
-                {/* SEND LOVE BUTTON – AB PEHLE JAISE HAMESHA DIKHEGA */}
+                {/* SEND LOVE BUTTON */}
                 <motion.button
                   variants={fadeUp}
                   onClick={() => {
@@ -1086,7 +1100,8 @@ export default function Home() {
                     borderRadius: "999px",
                     border: "none",
                     outline: "none",
-                    background: "linear-gradient(90deg,#22c55e,#4ade80,#a855ff)",
+                    background:
+                      "linear-gradient(90deg,#22c55e,#4ade80,#a855ff)",
                     color: "#fff",
                     fontSize: "1rem",
                     fontWeight: 700,
@@ -1103,7 +1118,6 @@ export default function Home() {
             </section>
           )}
 
-
           {/* SLIDE 6 - ENDING ENVELOPE + PHOTO */}
           {slide === 6 && (
             <section className="section anniv-full">
@@ -1114,7 +1128,7 @@ export default function Home() {
                 animate="show"
                 style={{ maxWidth: "640px", textAlign: "center" }}
               >
-                {/* 👉 ye dono text sirf tab dikhte hain jab envelope open nahi hua ho */}
+                {/* heading sirf tab jab envelope open nahi hua */}
                 {!envelopeOpened && (
                   <>
                     <motion.p
@@ -1170,7 +1184,8 @@ export default function Home() {
                       width: "260px",
                       height: "180px",
                       borderRadius: "24px",
-                      background: "linear-gradient(135deg,#111827,#020617)",
+                      background:
+                        "linear-gradient(135deg,#111827,#020617)",
                       boxShadow: "0 20px 45px rgba(12, 21, 42, 0.9)",
                       position: "relative",
                       cursor: "pointer",
@@ -1187,7 +1202,8 @@ export default function Home() {
                         left: 0,
                         right: 0,
                         height: "60%",
-                        background: "linear-gradient(135deg,#1f2937,#020617)",
+                        background:
+                          "linear-gradient(135deg,#1f2937,#020617)",
                         clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                       }}
                     />
@@ -1198,7 +1214,8 @@ export default function Home() {
                         left: 0,
                         right: 0,
                         top: "40%",
-                        background: "linear-gradient(135deg,#020617,#111827)",
+                        background:
+                          "linear-gradient(135deg,#020617,#111827)",
                       }}
                     />
                     {/* heart seal with pulse */}
@@ -1272,7 +1289,9 @@ export default function Home() {
                         height: "100%",
                         position: "relative",
                         transformStyle: "preserve-3d",
-                        transform: photoFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                        transform: photoFlipped
+                          ? "rotateY(180deg)"
+                          : "rotateY(0deg)",
                         transition:
                           "transform 0.8s cubic-bezier(0.19, 1, 0.22, 1)",
                         cursor: "pointer",
@@ -1308,7 +1327,8 @@ export default function Home() {
                           position: "absolute",
                           inset: 0,
                           borderRadius: "24px",
-                          background: "linear-gradient(135deg,#020617,#111827)",
+                          background:
+                            "linear-gradient(135deg,#020617,#111827)",
                           boxShadow: "0 20px 45px rgba(15,23,42,0.9)",
                           padding: "1.6rem 1.4rem",
                           backfaceVisibility: "hidden",
@@ -1348,7 +1368,6 @@ export default function Home() {
               </motion.div>
             </section>
           )}
-
         </div>
       </main>
 
