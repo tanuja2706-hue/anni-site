@@ -143,6 +143,18 @@ export default function Home() {
     if (slide === 0) play(whooshRef);
   }, [slide]);
 
+  /* SLIDE 0 – body scroll lock on hero */
+  useEffect(() => {
+    if (slide === 0) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [slide]);
+
   /* SLIDE 1 COUNTER */
   useEffect(() => {
     if (slide !== 1) return;
@@ -339,7 +351,9 @@ export default function Home() {
                   marginBottom: "4px",
                 }}
               >
-                Something Sweet Is Loading....
+                Something Sweet 
+                <br />
+                Is Loading....
               </motion.h1>
 
               <motion.div
@@ -366,7 +380,7 @@ export default function Home() {
                 <div
                   style={{
                     marginTop: "26px",
-                    width: "80%",
+                    width: "90%",
                     maxWidth: "520px",
                   }}
                 >
