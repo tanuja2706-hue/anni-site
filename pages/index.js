@@ -450,6 +450,7 @@ export default function Home() {
                   width: "100%",
                   maxWidth: "420px",
                   textAlign: "center",
+                  marginTop: "-28px",
                 }}
               >
                 <motion.div
