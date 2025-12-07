@@ -146,17 +146,22 @@ export default function Home() {
     if (slide === 0) play(whooshRef);
   }, [slide]);
 
-  /* SLIDE 0 – body scroll lock on hero */
+  /* SLIDE 0 – body + html scroll lock */
   useEffect(() => {
     if (slide === 0) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // ⭐IMPORTANT
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [slide]);
+
 
   /* SLIDE 0 – real viewport height fix for mobile */
   useEffect(() => {
@@ -181,6 +186,14 @@ export default function Home() {
       window.removeEventListener("orientationchange", setHeroHeight);
       if (heroRef.current) heroRef.current.style.height = "";
     };
+  }, [slide]);
+
+  /* reset hero position after leaving slide 0 */
+  useEffect(() => {
+    if (slide !== 0 && heroRef.current) {
+      heroRef.current.style.position = "";
+      heroRef.current.style.inset = "";
+    }
   }, [slide]);
 
 
@@ -357,6 +370,8 @@ export default function Home() {
               ref={heroRef}
               className="hero"
               style={{
+                position: "fixed",   
+                inset: 0,
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
